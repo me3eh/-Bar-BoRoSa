@@ -1,31 +1,20 @@
 # importing required libaries
-import numpy as np
 from sklearn.model_selection import train_test_split
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
-import pickle
-from transformers import XLNetConfig, XLNetModel
 import torch
 from torchinfo import summary
-
-from transformers import BertTokenizer, BertForSequenceClassification, AdamW
+from transformers import BertTokenizer, BertForSequenceClassification
 from torch.utils.data import DataLoader, Dataset
 import re
-import pickle
 
 import mlflow
 
 mlflow.set_tracking_uri(uri="http://localhost:8080")
 
 
+model = BertForSequenceClassification.from_pretrained(
+    'bert-base-uncased', num_labels=2)
 
-
-model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
 
 class FakeNewsDataset(Dataset):
     def __init__(self, texts, labels, tokenizer, max_length):
@@ -38,34 +27,35 @@ class FakeNewsDataset(Dataset):
         return len(self.texts)
 
     def __getitem__(self, idx):
-       text = str(self.texts[idx])
-       label = self.labels[idx]
+        text = str(self.texts[idx])
+        label = self.labels[idx]
 
-       # tokenize the text
-       encoding = self.tokenizer.encode_plus(
-           text,
-           add_special_tokens=True,
-           max_length=self.max_length,
-           return_token_type_ids=False,
-           padding='max_length',
-           truncation=True,
-           return_tensors='pt'
-       )
+        # tokenize the text
+        encoding = self.tokenizer.encode_plus(
+            text,
+            add_special_tokens=True,
+            max_length=self.max_length,
+            return_token_type_ids=False,
+            padding='max_length',
+            truncation=True,
+            return_tensors='pt'
+        )
 
-       # get the input ids
-       input_ids = encoding['input_ids'].flatten()
+        # get the input ids
+        input_ids = encoding['input_ids'].flatten()
 
-       # create the attention mask
-       attention_mask = torch.ones_like(input_ids)
+        # create the attention mask
+        attention_mask = torch.ones_like(input_ids)
 
-       # if 'attention_mask' exists in encoding, use it
-       if 'attention_mask' in encoding:
-           attention_mask = encoding['attention_mask'].flatten()
-           return {
-           'input_ids': input_ids,
-           'attention_mask': attention_mask,
-           'label': torch.tensor(label, dtype=torch.long)
-       }
+        # if 'attention_mask' exists in encoding, use it
+        if 'attention_mask' in encoding:
+            attention_mask = encoding['attention_mask'].flatten()
+            return {
+                'input_ids': input_ids,
+                'attention_mask': attention_mask,
+                'label': torch.tensor(label, dtype=torch.long)
+            }
+
 
 def train(model, train_loader, optimizer, criterion, device):
     model.train()
@@ -76,7 +66,8 @@ def train(model, train_loader, optimizer, criterion, device):
         labels = batch['label'].to(device)
 
         optimizer.zero_grad()
-        outputs = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+        outputs = model(input_ids=input_ids,
+                        attention_mask=attention_mask, labels=labels)
         loss = outputs.loss
         total_loss += loss.item()
 
@@ -86,6 +77,8 @@ def train(model, train_loader, optimizer, criterion, device):
     return total_loss / len(train_loader)
 
 # Example function for evaluating the model
+
+
 def evaluate(model, eval_loader, criterion, device):
     model.eval()
     total_loss = 0.0
@@ -97,7 +90,8 @@ def evaluate(model, eval_loader, criterion, device):
             attention_mask = batch['attention_mask'].to(device)
             labels = batch['label'].to(device)
 
-            outputs = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+            outputs = model(input_ids=input_ids,
+                            attention_mask=attention_mask, labels=labels)
             loss = outputs.loss
             total_loss += loss.item()
 
@@ -107,6 +101,8 @@ def evaluate(model, eval_loader, criterion, device):
 
     accuracy = correct / total
     return total_loss / len(eval_loader), accuracy
+
+
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 
@@ -116,7 +112,7 @@ def preprocess(text):
     return text.strip().lower()
 
 
-## First Dataset
+#  First Dataset
 data = pd.read_csv('./WELFake_Dataset.csv')
 data = data[:10000]
 # handle duplicated values
@@ -124,9 +120,7 @@ data.drop_duplicates(inplace=True)
 data.dropna(inplace=True)  # Remove rows with missing values
 
 
-
-
-data['text'] = data['text'] + ' ' + data['title']   
+data['text'] = data['text'] + ' ' + data['title']
 data['text'] = data['text'].apply(preprocess)
 
 
@@ -135,7 +129,8 @@ MAX_LENGTH = 32
 LEARNING_RATE = 2e-5
 EPOCHS = 2
 
-x_train, x_test, y_train, y_test = train_test_split(data['text'], data['label'], test_size=0.3, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(
+    data['text'], data['label'], test_size=0.3, random_state=42)
 
 x_train.reset_index(drop=True, inplace=True)
 x_test.reset_index(drop=True, inplace=True)
@@ -146,14 +141,13 @@ y_test.reset_index(drop=True, inplace=True)
 train_dataset = FakeNewsDataset(x_train, y_train, tokenizer, MAX_LENGTH)
 eval_dataset = FakeNewsDataset(x_test, y_test, tokenizer, MAX_LENGTH)
 
-    # Create data loaders
+# Create data loaders
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 eval_loader = DataLoader(eval_dataset, batch_size=BATCH_SIZE)
 
 
-
 criterion = torch.nn.CrossEntropyLoss()
-optimizer =  torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
+optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
 
 device = torch.device('mps')
 model.to(device)
@@ -177,10 +171,12 @@ with mlflow.start_run():
     for epoch in range(EPOCHS):
         print(f"Epoch {epoch+1}\n-------------------------------")
         train_loss = train(model, train_loader, optimizer, criterion, device)
-        eval_loss, eval_accuracy = evaluate(model, eval_loader, criterion, device)
+        eval_loss, eval_accuracy = evaluate(
+            model, eval_loader, criterion, device)
         print(f'Epoch {epoch+1}/{EPOCHS}:')
         print(f'Training Loss: {train_loss:.4f}')
-        print(f'Evaluation Loss: {eval_loss:.4f} | Evaluation Accuracy: {eval_accuracy:.4f}')
+        print(
+            f'Evaluation Loss: {eval_loss:.4f} | Evaluation Accuracy: {eval_accuracy:.4f}')
 
     # Save the trained model to MLflow.
     mlflow.pytorch.log_model(model, "model")
