@@ -18,11 +18,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       event.target.classList.remove('-sitemap-select-item-hover')
   }
   function clicking(event){
+      event.preventDefault();
       element = document.elementFromPoint(event.clientX, event.clientY);
       elements.push(element);
       alert(element.innerText);
 
-      element.style.visibility = 'hidden';
+      element.parentElement.style.visibility = 'hidden';
+      element.classList.remove('-sitemap-select-item-hover');
       console.log(element);
       document.removeEventListener("mouseout", mouseout);
       document.removeEventListener("mouseover", mouseover);
