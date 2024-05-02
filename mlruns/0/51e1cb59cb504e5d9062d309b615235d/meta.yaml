@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/51e1cb59cb504e5d9062d309b615235d/artifacts
+deleted_time: 1714675052635
+end_time: 1714674575921
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 51e1cb59cb504e5d9062d309b615235d
+run_name: placid-owl-50
+run_uuid: 51e1cb59cb504e5d9062d309b615235d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714674545524
+status: 3
+tags: []
+user_id: akselsaatci

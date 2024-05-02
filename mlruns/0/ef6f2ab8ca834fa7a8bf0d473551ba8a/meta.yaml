@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/ef6f2ab8ca834fa7a8bf0d473551ba8a/artifacts
+end_time: 1714681559703
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ef6f2ab8ca834fa7a8bf0d473551ba8a
+run_name: rare-eel-273
+run_uuid: ef6f2ab8ca834fa7a8bf0d473551ba8a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714680520183
+status: 3
+tags: []
+user_id: akselsaatci

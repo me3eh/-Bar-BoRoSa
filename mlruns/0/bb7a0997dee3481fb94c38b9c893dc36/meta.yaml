@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/bb7a0997dee3481fb94c38b9c893dc36/artifacts
+end_time: 1714675121518
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: bb7a0997dee3481fb94c38b9c893dc36
+run_name: beautiful-rook-944
+run_uuid: bb7a0997dee3481fb94c38b9c893dc36
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714674955870
+status: 3
+tags: []
+user_id: akselsaatci

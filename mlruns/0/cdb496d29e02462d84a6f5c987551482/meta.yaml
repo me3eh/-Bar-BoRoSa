@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/cdb496d29e02462d84a6f5c987551482/artifacts
+deleted_time: 1714674246235
+end_time: 1714673833997
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: cdb496d29e02462d84a6f5c987551482
+run_name: wistful-mink-359
+run_uuid: cdb496d29e02462d84a6f5c987551482
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714673746834
+status: 3
+tags: []
+user_id: akselsaatci

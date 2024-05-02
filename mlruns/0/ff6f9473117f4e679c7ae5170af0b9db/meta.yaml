@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/ff6f9473117f4e679c7ae5170af0b9db/artifacts
+deleted_time: 1714674246238
+end_time: 1714673658214
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: ff6f9473117f4e679c7ae5170af0b9db
+run_name: learned-crab-550
+run_uuid: ff6f9473117f4e679c7ae5170af0b9db
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714673592462
+status: 4
+tags: []
+user_id: akselsaatci

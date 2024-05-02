@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/6ba4f44166ad49d2af4ddeb6c7aadfc9/artifacts
+deleted_time: 1714674246233
+end_time: 1714673518278
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 6ba4f44166ad49d2af4ddeb6c7aadfc9
+run_name: respected-seal-860
+run_uuid: 6ba4f44166ad49d2af4ddeb6c7aadfc9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714673453194
+status: 4
+tags: []
+user_id: akselsaatci

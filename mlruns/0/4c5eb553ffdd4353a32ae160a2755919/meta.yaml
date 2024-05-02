@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/4c5eb553ffdd4353a32ae160a2755919/artifacts
+deleted_time: 1714673511335
+end_time: 1714673342876
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 4c5eb553ffdd4353a32ae160a2755919
+run_name: languid-shrimp-980
+run_uuid: 4c5eb553ffdd4353a32ae160a2755919
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714673277622
+status: 4
+tags: []
+user_id: akselsaatci

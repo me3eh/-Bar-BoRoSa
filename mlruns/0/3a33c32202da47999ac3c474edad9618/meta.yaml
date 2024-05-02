@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/3a33c32202da47999ac3c474edad9618/artifacts
+end_time: 1714676925515
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3a33c32202da47999ac3c474edad9618
+run_name: classy-sloth-80
+run_uuid: 3a33c32202da47999ac3c474edad9618
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714676764936
+status: 3
+tags: []
+user_id: akselsaatci

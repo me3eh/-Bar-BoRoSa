@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/019836520d224d1b9189156e1bb2b657/artifacts
+deleted_time: 1714675052635
+end_time: 1714674517334
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 019836520d224d1b9189156e1bb2b657
+run_name: beautiful-goat-540
+run_uuid: 019836520d224d1b9189156e1bb2b657
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714674516582
+status: 4
+tags: []
+user_id: akselsaatci

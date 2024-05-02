@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/d42ef7a2d7da443cbc8684a8e2d50b58/artifacts
+deleted_time: 1714675052635
+end_time: 1714674631659
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: d42ef7a2d7da443cbc8684a8e2d50b58
+run_name: incongruous-shad-703
+run_uuid: d42ef7a2d7da443cbc8684a8e2d50b58
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714674625762
+status: 4
+tags: []
+user_id: akselsaatci

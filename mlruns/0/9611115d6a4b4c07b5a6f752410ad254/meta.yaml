@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/9611115d6a4b4c07b5a6f752410ad254/artifacts
+deleted_time: 1714673511337
+end_time: 1714672822290
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 9611115d6a4b4c07b5a6f752410ad254
+run_name: invincible-frog-234
+run_uuid: 9611115d6a4b4c07b5a6f752410ad254
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714672822268
+status: 4
+tags: []
+user_id: akselsaatci

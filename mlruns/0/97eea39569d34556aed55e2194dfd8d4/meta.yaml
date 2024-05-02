@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/97eea39569d34556aed55e2194dfd8d4/artifacts
+deleted_time: 1714673511335
+end_time: 1714673142687
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 97eea39569d34556aed55e2194dfd8d4
+run_name: caring-calf-322
+run_uuid: 97eea39569d34556aed55e2194dfd8d4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714673137107
+status: 4
+tags: []
+user_id: akselsaatci
