@@ -1,19 +1,17 @@
-# importing required libaries
-from sklearn.model_selection import train_test_split
-import pandas as pd
-import torch
-from torchinfo import summary
-from transformers import BertTokenizer, BertForSequenceClassification
-from torch.utils.data import DataLoader, Dataset
 import re
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import pandas as pd
+import pytorch_lightning as pl
 import mlflow
+from mlflow.models import infer_signature
+from sklearn.model_selection import train_test_split
+from torch.utils.data import DataLoader, Dataset
+from transformers import BertTokenizer, BertForSequenceClassification
 
-mlflow.set_tracking_uri(uri="http://localhost:8080")
-
-
-model = BertForSequenceClassification.from_pretrained(
-    'bert-base-uncased', num_labels=2)
+mlflow.set_tracking_uri(uri="http://localhost:5000")
 
 
 class FakeNewsDataset(Dataset):
@@ -30,7 +28,6 @@ class FakeNewsDataset(Dataset):
         text = str(self.texts[idx])
         label = self.labels[idx]
 
-        # tokenize the text
         encoding = self.tokenizer.encode_plus(
             text,
             add_special_tokens=True,
@@ -41,69 +38,90 @@ class FakeNewsDataset(Dataset):
             return_tensors='pt'
         )
 
-        # get the input ids
         input_ids = encoding['input_ids'].flatten()
 
-        # create the attention mask
         attention_mask = torch.ones_like(input_ids)
 
-        # if 'attention_mask' exists in encoding, use it
         if 'attention_mask' in encoding:
             attention_mask = encoding['attention_mask'].flatten()
-            return {
-                'input_ids': input_ids,
-                'attention_mask': attention_mask,
-                'label': torch.tensor(label, dtype=torch.long)
-            }
+
+        return {
+            'input_ids': input_ids,
+            'attention_mask': attention_mask,
+            'label': torch.tensor(label, dtype=torch.long)
+        }
 
 
-def train(model, train_loader, optimizer, criterion, device):
-    model.train()
-    total_loss = 0.0
-    for batch in train_loader:
-        input_ids = batch['input_ids'].to(device)
-        attention_mask = batch['attention_mask'].to(device)
-        labels = batch['label'].to(device)
+class BertClassifier(pl.LightningModule):
+    def __init__(self, num_labels, learning_rate=2e-5, dropout_prob=0.1):
+        super(BertClassifier, self).__init__()
+        self.save_hyperparameters()  # This line logs all hyperparameters
 
-        optimizer.zero_grad()
-        outputs = model(input_ids=input_ids,
-                        attention_mask=attention_mask, labels=labels)
-        loss = outputs.loss
-        total_loss += loss.item()
+        self.model = BertForSequenceClassification.from_pretrained(
+            'bert-base-uncased', num_labels=num_labels)
+        self.learning_rate = learning_rate
+        self.dropout = nn.Dropout(dropout_prob)
 
-        loss.backward()
-        optimizer.step()
+    def forward(self, input_ids, attention_mask):
+        return self.model(input_ids, attention_mask=attention_mask)
 
-    return total_loss / len(train_loader)
+    def training_step(self, batch, batch_idx):
+        input_ids = batch['input_ids']
+        attention_mask = batch['attention_mask']
+        labels = batch['label']
 
-# Example function for evaluating the model
+        outputs = self(input_ids, attention_mask)
+        logits = outputs.logits
 
+        loss = F.cross_entropy(logits, labels)
+        self.log('train_loss', loss)  # Log training loss
 
-def evaluate(model, eval_loader, criterion, device):
-    model.eval()
-    total_loss = 0.0
-    correct = 0
-    total = 0
-    with torch.no_grad():
-        for batch in eval_loader:
-            input_ids = batch['input_ids'].to(device)
-            attention_mask = batch['attention_mask'].to(device)
-            labels = batch['label'].to(device)
+        # Example: Log additional metrics
+        accuracy = (logits.argmax(dim=1) == labels).float().mean()
+        # Log training accuracy
+        self.log('train_accuracy', accuracy, on_epoch=True)
 
-            outputs = model(input_ids=input_ids,
-                            attention_mask=attention_mask, labels=labels)
-            loss = outputs.loss
-            total_loss += loss.item()
+        return loss
 
-            predictions = torch.argmax(outputs.logits, dim=1)
-            correct += (predictions == labels).sum().item()
-            total += labels.size(0)
+    def validation_step(self, batch, batch_idx):
+        input_ids = batch['input_ids']
+        attention_mask = batch['attention_mask']
+        labels = batch['label']
 
-    accuracy = correct / total
-    return total_loss / len(eval_loader), accuracy
+        outputs = self(input_ids, attention_mask)
+        logits = outputs.logits
 
+        loss = F.cross_entropy(logits, labels)
+        self.log('val_loss', loss)  # Log validation loss
 
-tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        # Example: Log additional metrics
+        accuracy = (logits.argmax(dim=1) == labels).float().mean()
+        # Log validation accuracy
+        self.log('val_accuracy', accuracy, on_epoch=True)
+
+        return loss
+
+    def test_step(self, batch, batch_idx):
+        input_ids = batch['input_ids']
+        attention_mask = batch['attention_mask']
+        labels = batch['label']
+
+        outputs = self(input_ids, attention_mask)
+        logits = outputs.logits
+
+        loss = F.cross_entropy(logits, labels)
+        self.log('test_loss', loss)  # Log test loss
+
+        # Example: Log additional metrics
+        accuracy = (logits.argmax(dim=1) == labels).float().mean()
+        self.log('test_accuracy', accuracy)  # Log test accuracy
+
+        return loss
+
+    def configure_optimizers(self):
+        optimizer = torch.optim.AdamW(
+            self.parameters(), lr=self.learning_rate)
+        return optimizer
 
 
 def preprocess(text):
@@ -112,71 +130,60 @@ def preprocess(text):
     return text.strip().lower()
 
 
-#  First Dataset
-data = pd.read_csv('./WELFake_Dataset.csv')
-data = data[:10000]
-# handle duplicated values
-data.drop_duplicates(inplace=True)
-data.dropna(inplace=True)  # Remove rows with missing values
+def main():
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+
+    data = pd.read_csv('./WELFake_Dataset.csv')
+    data.drop_duplicates(inplace=True)
+    data.dropna(inplace=True)
+
+    data['text'] = data['text'] + ' ' + data['title']
+    data['text'] = data['text'].apply(preprocess)
+
+    x_train, x_test, y_train, y_test = train_test_split(
+        data['text'], data['label'], test_size=0.3, random_state=42)
+
+    x_train.reset_index(drop=True, inplace=True)
+    x_test.reset_index(drop=True, inplace=True)
+    y_train.reset_index(drop=True, inplace=True)
+    y_test.reset_index(drop=True, inplace=True)
+
+    train_dataset = FakeNewsDataset(x_train, y_train, tokenizer, max_length=32)
+    eval_dataset = FakeNewsDataset(x_test, y_test, tokenizer, max_length=32)
+
+    train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
+    eval_loader = DataLoader(eval_dataset, batch_size=16)
+
+    model = BertClassifier(num_labels=2)
+
+    early_stopping = pl.callbacks.EarlyStopping(monitor="val_loss")
+
+    trainer = pl.Trainer(
+        max_epochs=1,
+        callbacks=[early_stopping],
+        accelerator='mps' if torch.cuda.is_available() else 'mps',
+    )
+    mlflow.pytorch.autolog()
+    # Initiate MLflow run
+    with mlflow.start_run():
+        # Log hyperparameters
+        mlflow.log_params(model.hparams)
+
+        input_example = {
+            "text": "asdasda",
+        }
+        # Log model architecture
+        signature = infer_signature({"input": "string"}, {"output": "int"})
+
+        mlflow.pytorch.log_model(
+            model, "models", input_example=input_example, signature=signature)
+
+        # Train the model
+        trainer.fit(model, train_loader, eval_loader)
+
+        # Evaluate on test set
+        trainer.test(model, eval_loader)
 
 
-data['text'] = data['text'] + ' ' + data['title']
-data['text'] = data['text'].apply(preprocess)
-
-
-BATCH_SIZE = 16
-MAX_LENGTH = 32
-LEARNING_RATE = 2e-5
-EPOCHS = 2
-
-x_train, x_test, y_train, y_test = train_test_split(
-    data['text'], data['label'], test_size=0.3, random_state=42)
-
-x_train.reset_index(drop=True, inplace=True)
-x_test.reset_index(drop=True, inplace=True)
-y_train.reset_index(drop=True, inplace=True)
-y_test.reset_index(drop=True, inplace=True)
-
-
-train_dataset = FakeNewsDataset(x_train, y_train, tokenizer, MAX_LENGTH)
-eval_dataset = FakeNewsDataset(x_test, y_test, tokenizer, MAX_LENGTH)
-
-# Create data loaders
-train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
-eval_loader = DataLoader(eval_dataset, batch_size=BATCH_SIZE)
-
-
-criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
-
-device = torch.device('mps')
-model.to(device)
-
-with mlflow.start_run():
-    params = {
-        "epochs": EPOCHS,
-        "learning_rate": LEARNING_RATE,
-        "batch_size": BATCH_SIZE,
-        "loss_function": criterion.__class__.__name__,
-        "optimizer": optimizer.__class__.__name__,
-    }
-    # Log training parameters.
-    mlflow.log_params(params)
-
-    # Log model summary.
-    with open("model_summary.txt", "w") as f:
-        f.write(str(summary(model)))
-    mlflow.log_artifact("model_summary.txt")
-
-    for epoch in range(EPOCHS):
-        print(f"Epoch {epoch+1}\n-------------------------------")
-        train_loss = train(model, train_loader, optimizer, criterion, device)
-        eval_loss, eval_accuracy = evaluate(
-            model, eval_loader, criterion, device)
-        print(f'Epoch {epoch+1}/{EPOCHS}:')
-        print(f'Training Loss: {train_loss:.4f}')
-        print(
-            f'Evaluation Loss: {eval_loss:.4f} | Evaluation Accuracy: {eval_accuracy:.4f}')
-
-    # Save the trained model to MLflow.
-    mlflow.pytorch.log_model(model, "model")
+if __name__ == "__main__":
+    main()
