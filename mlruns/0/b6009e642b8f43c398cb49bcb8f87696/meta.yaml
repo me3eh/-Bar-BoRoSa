@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/b6009e642b8f43c398cb49bcb8f87696/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b6009e642b8f43c398cb49bcb8f87696
+run_name: worried-hound-814
+run_uuid: b6009e642b8f43c398cb49bcb8f87696
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714919701287
+status: 1
+tags: []
+user_id: akselsaatci

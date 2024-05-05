@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/9f3dff2f6255444097eef4519218cb18/artifacts
+end_time: 1714917482922
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 9f3dff2f6255444097eef4519218cb18
+run_name: learned-skink-880
+run_uuid: 9f3dff2f6255444097eef4519218cb18
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714917365782
+status: 3
+tags: []
+user_id: akselsaatci

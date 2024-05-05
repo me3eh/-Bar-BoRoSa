@@ -1,0 +1,9 @@
+digest: f423f1f8
+name: dataset
+profile: '{"features_shape": [24421, 207463], "features_size": 5066453923, "features_nbytes":
+  40531631384}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"float64\", \"shape\": [-1, 207463]}}]", "targets": null}}'
+source: '{"tags": {"mlflow.user": "akselsaatci", "mlflow.source.name": "/opt/anaconda3/lib/python3.11/site-packages/ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code
