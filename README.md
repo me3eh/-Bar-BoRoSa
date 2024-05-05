@@ -7,6 +7,9 @@ If you are using Conda :
 conda env create -f conda.yml
 conda activate news_prediction 
 ```
+Also you have to make your own `.env` file according to the `.env.example` file.
+
+
 
 ## Datasets
 - [Fake News Detection](https://www.kaggle.com/vishakhdapat/fake-news-detection)
