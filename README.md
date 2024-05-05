@@ -2,9 +2,9 @@
 Project for AI for software Engineering
 
 ## Setting Env
-If you are using Conda
+If you are using Conda : 
 ```bash
-conda env create -f environment.yml
+conda env create -f conda.yml
 conda activate news_prediction 
 ```
 
@@ -14,7 +14,7 @@ conda activate news_prediction
 - TODO There was another one
 
 ## Project Structure
-- `model/data/` - Contains the datasets
+- `/model/data/` - Contains the datasets
 - `/model/notebooks/` - Contains the notebooks
 - `/model/notebooks/transformers` - Contains the notebooks for the transformers
 - `/report_directory` - Contains our report 
