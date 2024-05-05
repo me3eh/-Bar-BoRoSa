@@ -10,9 +10,12 @@ from mlflow.models import infer_signature
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, Dataset
 from transformers import BertTokenizer, BertForSequenceClassification
+from dotenv import load_dotenv
+import os
 
-mlflow.set_tracking_uri(uri="http://localhost:5000")
+load_dotenv("../../../.env")
 
+mlflow.set_tracking_uri(os.environ.get("MLFLOW_SERVER"))
 
 class FakeNewsDataset(Dataset):
     def __init__(self, texts, labels, tokenizer, max_length):

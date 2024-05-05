@@ -4,6 +4,10 @@ from transformers import BertTokenizer
 import io
 import pandas as pd
 
+
+from dotenv import load_dotenv
+import os
+
 class CPU_Unpickler(pickle.Unpickler):
     def find_class(self, module, name):
         if module == 'torch.storage' and name == '_load_from_bytes':
@@ -11,10 +15,11 @@ class CPU_Unpickler(pickle.Unpickler):
         else: return super().find_class(module, name)
 
 
+load_dotenv("../../../.env")
 
 device = torch.device('mps')
 import mlflow
-mlflow.set_tracking_uri(uri="http://localhost:8080")
+mlflow.set_tracking_uri(os.environ.get("MLFLOW_SERVER"))
 logged_model = 'runs:/d808fa285c3e40e6a436c48c6fa90f96/model'
 
 # Load model as a PyFuncModel.
