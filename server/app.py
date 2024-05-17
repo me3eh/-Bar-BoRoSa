@@ -1,12 +1,11 @@
 from flask import Flask, json, request, jsonify
-from load_model import load_model, predict
+from model.load_model import load_model, predict
 from dotenv import load_dotenv
 import os
-load_dotenv(".env")
+load_dotenv("../env")
 
 app = Flask(__name__)
-
-# model, tokenizer, device = load_model()
+model, tokenizer, device = load_model()
 
 
 @app.route("/")

@@ -4,10 +4,12 @@ import torch
 
 from dotenv import load_dotenv
 import os
-load_dotenv(".env")
+load_dotenv("../env")
+
+
 def load_model():
-    mlflow.set_tracking_uri(os.environ.get("MLFLOW_SERVER"))   
-    logged_model = 'runs:/3a33c32202da47999ac3c474edad9618/model'
+    mlflow.set_tracking_uri(os.environ.get("MLFLOW_SERVER"))
+    logged_model = 'runs:/'+os.environ.get('RUN_ID') + '/model'
 
     device = torch.device('cpu')
 
