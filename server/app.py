@@ -1,11 +1,11 @@
 from flask import Flask, json, request, jsonify
-from model.load_model import load_model, predict
-from dotenv import load_dotenv
+# from model.load_model import load_model, predict
+# from dotenv import load_dotenv
 import os
-load_dotenv("../env")
+# load_dotenv("../env")
 
 app = Flask(__name__)
-model, tokenizer, device = load_model()
+# model, tokenizer, device = load_model()
 
 
 @app.route("/")
@@ -17,7 +17,9 @@ def hello():
 def fake_news_decision():
     # Get data from the request
     data = request.json
-
+    print("Dupa")
+    print(data)
+    print(data)
     # Assuming the text data is in the 'text' field of the JSON data
     text = data.get('text', '')
 
