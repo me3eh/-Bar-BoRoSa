@@ -22,6 +22,10 @@ Also you have to make your own `.env` file according to the `.env.example` file.
 - `/model/notebooks/transformers` - Contains the notebooks for the transformers
 - `/report_directory` - Contains our report 
 
+## Chrome plugin
+You need to install Google Chrome to get chrome_plugin to run. You will need to activate Developer mode, click Load Unpacked and point to folder with project of chrome_plugin.
+Link to whole tutorial: https://medium.com/@meet30997/getting-started-with-chrome-extension-in-2023-how-to-create-your-own-chrome-extension-f5716770e8bb
+
 
 ## Link to repository with site for articles
 https://github.com/me3eh/BarBoRoSa_articles
