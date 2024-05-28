@@ -21,3 +21,7 @@ Also you have to make your own `.env` file according to the `.env.example` file.
 - `/model/notebooks/` - Contains the notebooks
 - `/model/notebooks/transformers` - Contains the notebooks for the transformers
 - `/report_directory` - Contains our report 
+
+
+## Link to repository with site for articles
+https://github.com/me3eh/BarBoRoSa_articles
