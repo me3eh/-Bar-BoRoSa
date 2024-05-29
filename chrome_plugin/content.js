@@ -49,14 +49,19 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         const response = await sendDetectionRequest(element.innerText);
         result = response.result;
       } catch (error) {
-        let dupa = "dupa";
+        result = "nothing";
       }
-      alert(result);
       if( result == "false"){
-        element.classList.add("-real-news")
+        element.classList.add("-real-news");
+        alert("Given news was real");
+      }
+      else if (result == "true"){
+        element.classList.add("-false-news");
+        alert("Given news was fake");
       }
       else{
-        element.classList.add("-false-news")
+        result = "nothing";
+        alert("There was some problem with response from AI server");
       }
       document.removeEventListener("mouseout", mouseout);
       document.removeEventListener("mouseover", mouseover);
