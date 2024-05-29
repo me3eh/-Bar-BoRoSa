@@ -4,7 +4,7 @@ Project for AI for software Engineering
 ## Setting Env
 If you are using Conda : 
 ```bash
-conda env create -f conda.yml
+conda env create -f conda.yaml
 conda activate news_prediction 
 ```
 Also you have to make your own `.env` file according to the `.env.example` file.
