@@ -5,13 +5,13 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - pytorch=2.2.2=py3.11_0
-  - safetensors=0.4.2=py311h62f922a_0
-  - scikit-image=0.22.0=py311h7aedaa7_0
-  - scikit-learn=1.2.2=py311h313beb8_1
-  - scipy=1.12.0=py311hc76d9b0_0
-  - scrapy=2.11.1=py311hca03da5_0
-  - seaborn=0.13.2=hd8ed1ab_0
-  - seaborn-base=0.13.2=pyhd8ed1ab_0
-  - tokenizers=0.15.1=py311h3dd52b7_0
-  - transformers=4.37.2=py311hca03da5_0
+  - pytorch=2.2.2
+  - safetensors=0.4.2
+  - scikit-image=0.22.0
+  - scikit-learn=1.2.2
+  - scipy=1.12.0
+  - scrapy=2.11.1
+  - seaborn=0.13.2
+  - seaborn-base=0.13.2
+  - tokenizers=0.15.1
+  - transformers=4.37.2
