@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   async function sendDetectionRequest(data) {
     const json = {data: `${data}`};
     const obj = JSON.stringify(json);
-    const response = await fetch('http://127.0.0.1:5000/detection', {
+    const response = await fetch('http://127.0.0.1:5001/detection', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         element.classList.add("-real-news");
         alert("Given news was real");
       }
-      else if (result == "true"){
+      else if(result == "true"){
         element.classList.add("-false-news");
         alert("Given news was fake");
       }
@@ -63,6 +63,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         result = "nothing";
         alert("There was some problem with response from AI server");
       }
+      element.classList.remove("-sitemap-select-item-hover");
+
       document.removeEventListener("mouseout", mouseout);
       document.removeEventListener("mouseover", mouseover);
       document.removeEventListener("click", clicking);
