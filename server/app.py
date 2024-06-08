@@ -6,11 +6,12 @@ from model.load_model import load_model, predict
 # from dotenv import load_dotenv
 import os
 import random
+import pickle
 # load_dotenv("../env")
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-model, tokenizer, device = load_model()
+model = load_model()
 
 
 # example for checking if python flask works ;P
@@ -30,7 +31,7 @@ def fake_news_decision():
     # text = data.get('text', '')
 
     # Make prediction
-    predicted_class = predict(value_for_checking, model, tokenizer, device)
+    predicted_class = predict(value_for_checking, model)
     # n = random.randint(0, 1)
     # predicted_class = "true" if n == 1 else "false"
     response_data = {"result": predicted_class}
