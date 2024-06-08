@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/8fa03f07ab3e4599ad078755319734a9/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8fa03f07ab3e4599ad078755319734a9
+run_name: silent-kit-8
+run_uuid: 8fa03f07ab3e4599ad078755319734a9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717715955429
+status: 1
+tags: []
+user_id: me3eh

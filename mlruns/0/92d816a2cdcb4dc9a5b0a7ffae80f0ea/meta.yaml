@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/92d816a2cdcb4dc9a5b0a7ffae80f0ea/artifacts
+deleted_time: 1717728258556
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 92d816a2cdcb4dc9a5b0a7ffae80f0ea
+run_name: adventurous-flea-850
+run_uuid: 92d816a2cdcb4dc9a5b0a7ffae80f0ea
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717726043049
+status: 1
+tags: []
+user_id: me3eh

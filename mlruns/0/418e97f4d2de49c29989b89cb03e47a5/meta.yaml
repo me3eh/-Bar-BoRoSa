@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/418e97f4d2de49c29989b89cb03e47a5/artifacts
+deleted_time: 1717728264098
+end_time: 1717714897319
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 418e97f4d2de49c29989b89cb03e47a5
+run_name: ambitious-eel-96
+run_uuid: 418e97f4d2de49c29989b89cb03e47a5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717714894072
+status: 4
+tags: []
+user_id: me3eh

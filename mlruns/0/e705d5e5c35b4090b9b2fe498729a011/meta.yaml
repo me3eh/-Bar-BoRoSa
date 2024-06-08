@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/e705d5e5c35b4090b9b2fe498729a011/artifacts
+deleted_time: 1717728258558
+end_time: 1717725171039
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: e705d5e5c35b4090b9b2fe498729a011
+run_name: funny-jay-936
+run_uuid: e705d5e5c35b4090b9b2fe498729a011
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717725170835
+status: 4
+tags: []
+user_id: me3eh

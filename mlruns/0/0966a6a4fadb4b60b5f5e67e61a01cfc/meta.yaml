@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/0966a6a4fadb4b60b5f5e67e61a01cfc/artifacts
+deleted_time: 1717728258554
+end_time: 1717725204213
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 0966a6a4fadb4b60b5f5e67e61a01cfc
+run_name: funny-pig-816
+run_uuid: 0966a6a4fadb4b60b5f5e67e61a01cfc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717725203985
+status: 4
+tags: []
+user_id: me3eh

@@ -2,6 +2,7 @@ from flask import Flask, json, request, jsonify
 from flask_cors import CORS, cross_origin
 
 from model.load_model import load_model, predict
+# model, tokenizer, device = load_model()
 # from dotenv import load_dotenv
 import os
 import random

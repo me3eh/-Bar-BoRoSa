@@ -136,7 +136,7 @@ def preprocess(text):
 def main():
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
-    data = pd.read_csv('./WELFake_Dataset.csv')
+    data = pd.read_csv('./model/data/WELFake_Dataset.csv')
     data.drop_duplicates(inplace=True)
     data.dropna(inplace=True)
 

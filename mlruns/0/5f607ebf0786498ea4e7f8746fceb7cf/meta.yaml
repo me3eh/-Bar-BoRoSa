@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/5f607ebf0786498ea4e7f8746fceb7cf/artifacts
+deleted_time: 1717728264104
+end_time: 1717715027471
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 5f607ebf0786498ea4e7f8746fceb7cf
+run_name: powerful-hawk-317
+run_uuid: 5f607ebf0786498ea4e7f8746fceb7cf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717715023355
+status: 4
+tags: []
+user_id: me3eh
