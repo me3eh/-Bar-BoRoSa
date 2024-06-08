@@ -21,6 +21,7 @@ def preprocess(text):
 
 def load_model():
     original_file_path = os.path.dirname(os.path.realpath(__file__))
+    # print(original_file_path)
     os.chdir(f"{original_file_path}/notebooks")
 
     model = mlflow.sklearn.load_model('Decision Tree')
@@ -36,7 +37,7 @@ def predict(text, model):
     word_vector = vectorizer.transform([text])
     prediction = model.predict(word_vector)
     final_result = "true" if prediction == 1 else "false" 
-    print("The prediction for the word '{}' is: {}".format(text, prediction))
+    # print("The prediction for the word '{}' is: {}".format(text, prediction))
     return final_result
 
 
