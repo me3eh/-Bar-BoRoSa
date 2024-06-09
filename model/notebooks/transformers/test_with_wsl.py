@@ -71,3 +71,4 @@ df['predicted_class'] = predictions
 # Save or print the DataFrame
 print(df.head())
 df.to_csv('predictions_test3.csv', index=False)
+
