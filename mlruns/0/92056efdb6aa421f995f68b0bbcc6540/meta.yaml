@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/92056efdb6aa421f995f68b0bbcc6540/artifacts
+end_time: 1717755734870
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 92056efdb6aa421f995f68b0bbcc6540
+run_name: magnificent-bear-519
+run_uuid: 92056efdb6aa421f995f68b0bbcc6540
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717755721171
+status: 3
+tags: []
+user_id: me3eh

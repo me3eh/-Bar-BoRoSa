@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/20e0e70f53b94bc786daa540800e2c0a/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 20e0e70f53b94bc786daa540800e2c0a
+run_name: popular-whale-769
+run_uuid: 20e0e70f53b94bc786daa540800e2c0a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717850336058
+status: 1
+tags: []
+user_id: me3eh

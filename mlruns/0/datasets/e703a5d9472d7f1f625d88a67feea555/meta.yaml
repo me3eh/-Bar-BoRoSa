@@ -1,0 +1,9 @@
+digest: 56f449cf
+name: dataset
+profile: '{"features_shape": [2960, 49198], "features_size": 145626080, "features_nbytes":
+  1165008640}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"float64\", \"shape\": [-1, 49198]}}]", "targets": null}}'
+source: '{"tags": {"mlflow.user": "me3eh", "mlflow.source.name": "/home/me3eh/Bar_BoRoSa/venv/lib/python3.11/site-packages/ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code

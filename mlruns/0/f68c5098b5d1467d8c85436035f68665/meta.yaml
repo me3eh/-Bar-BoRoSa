@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/f68c5098b5d1467d8c85436035f68665/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f68c5098b5d1467d8c85436035f68665
+run_name: invincible-wasp-727
+run_uuid: f68c5098b5d1467d8c85436035f68665
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717755856288
+status: 1
+tags: []
+user_id: me3eh
